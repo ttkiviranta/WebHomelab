@@ -1,0 +1,89 @@
+﻿@model IEnumerable<WebHomelab.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Products</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductNumber)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Color)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.StandardCost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ListPrice)
+            </th>
+
+
+            <th>
+                @Html.DisplayNameFor(model => model.ModifiedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductModel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductSubcategory)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductNumber)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Color)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.StandardCost)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ListPrice)
+                </td>
+
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModifiedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductModel.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductSubcategory.Name)
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a> |
+                    <a asp-action="Audit" asp-route-id="@item.ProductId">Audit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
