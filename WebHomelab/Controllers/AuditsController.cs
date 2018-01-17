@@ -26,7 +26,7 @@ namespace WebHomelab.Controllers
         }
 
         // GET: Audits/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(long? id)
         {
             if (id == null)
             {
@@ -78,7 +78,7 @@ namespace WebHomelab.Controllers
         }
 
         // GET: Audits/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
             {
@@ -102,9 +102,9 @@ namespace WebHomelab.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AuditId,Name,ProductNumber,MakeFlag,FinishedGoodsFlag,Color,SafetyStockLevel,ReorderPoint,StandardCost,ListPrice,Size,SizeUnitMeasureCode,WeightUnitMeasureCode,Weight,DaysToManufacture,ProductLine,Class,Style,ProductSubcategoryId,ProductModelId,SellStartDate,SellEndDate,DiscontinuedDate,Rowguid,ModifiedDate,UserIdentifier")] Audit audit)
+        public async Task<IActionResult> Edit(long id, [Bind("AuditId,Name,ProductNumber,MakeFlag,FinishedGoodsFlag,Color,SafetyStockLevel,ReorderPoint,StandardCost,ListPrice,Size,SizeUnitMeasureCode,WeightUnitMeasureCode,Weight,DaysToManufacture,ProductLine,Class,Style,ProductSubcategoryId,ProductModelId,SellStartDate,SellEndDate,DiscontinuedDate,Rowguid,ModifiedDate,UserIdentifier")] Audit audit)
         {
-            if (id != audit.AuditId)
+       /*     if (id != audit.AuditId)
             {
                 return NotFound();
             }
@@ -132,12 +132,12 @@ namespace WebHomelab.Controllers
             ViewData["ProductModelId"] = new SelectList(_context.ProductModel, "ProductModelId", "Name", audit.ProductModelId);
             ViewData["ProductSubcategoryId"] = new SelectList(_context.ProductSubcategory, "ProductSubcategoryId", "Name", audit.ProductSubcategoryId);
             ViewData["SizeUnitMeasureCode"] = new SelectList(_context.UnitMeasure, "UnitMeasureCode", "UnitMeasureCode", audit.SizeUnitMeasureCode);
-            ViewData["WeightUnitMeasureCode"] = new SelectList(_context.UnitMeasure, "UnitMeasureCode", "UnitMeasureCode", audit.WeightUnitMeasureCode);
-            return View(audit);
+            ViewData["WeightUnitMeasureCode"] = new SelectList(_context.UnitMeasure, "UnitMeasureCode", "UnitMeasureCode", audit.WeightUnitMeasureCode);*/
+            return View(audit); 
         }
 
         // GET: Audits/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
             {
@@ -161,7 +161,7 @@ namespace WebHomelab.Controllers
         // POST: Audits/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(long id)
         {
             var audit = await _context.Audit.SingleOrDefaultAsync(m => m.AuditId == id);
             _context.Audit.Remove(audit);
@@ -169,7 +169,7 @@ namespace WebHomelab.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AuditExists(int id)
+        private bool AuditExists(long id)
         {
             return _context.Audit.Any(e => e.AuditId == id);
         }
