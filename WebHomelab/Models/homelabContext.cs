@@ -123,7 +123,7 @@ namespace WebHomelab.Models
 
                 entity.Property(e => e.ModifiedDate)
                     .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
+                    .HasDefaultValueSql("getdate()");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -156,7 +156,11 @@ namespace WebHomelab.Models
 
                 entity.Property(e => e.Style).HasColumnType("nchar(2)");
 
-                entity.Property(e => e.UserIdentifier).HasMaxLength(20);
+                entity.Property(e => e.UserIdentifier)
+                    .HasMaxLength(20)
+                    .HasColumnName("UserIdentifier")
+                    .HasDefaultValueSql("Tim...");
+
 
                 entity.Property(e => e.Weight).HasColumnType("decimal(8, 2)");
 

@@ -67,34 +67,44 @@ namespace WebHomelab.Models
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Sell start date")]
+        [Display(Name = "Sell start date      ")]
+        [StringLength(20)]
         public DateTime SellStartDate { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Sell end date")]
+        [Display(Name = "Sell end date      ")]
+        [StringLength(20)]
         public DateTime? SellEndDate { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Discontinued date")]
+       
         public DateTime? DiscontinuedDate { get; set; }
 
         public Guid Rowguid { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+   //     [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = false)]
         [Display(Name = "Modified date")]
+        [StringLength(20)]
         public DateTime ModifiedDate { get; set; }
 
 
-        [Display(Name = "User")]
+        [Display(Name = "Modified by")]
         public string UserIdentifier { get; set; }
 
         [Display(Name = "Product model")]
         public ProductModel ProductModel { get; set; }
+
+        [Display(Name = "Product subcategory")]
         public ProductSubcategory ProductSubcategory { get; set; }
+
+        [Display(Name = "Size unit measure code navigation")]
         public UnitMeasure SizeUnitMeasureCodeNavigation { get; set; }
+
+        [Display(Name = "Weight unit measure code navigation")]
         public UnitMeasure WeightUnitMeasureCodeNavigation { get; set; }
     }
 }

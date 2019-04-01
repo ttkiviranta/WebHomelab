@@ -4,10 +4,14 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
 
+<div class="col-md-offset-0">
 
-<table class="table">
+<h2>Change History</h2>
+
+</div>
+
+<table class="table table-hover" >
     <thead>
         <tr>
             <th>
@@ -70,7 +74,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.DiscontinuedDate)
             </th>
-            
+
 
             <th>
                 @Html.DisplayNameFor(model => model.ProductModel)
@@ -88,85 +92,86 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ModifiedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserIdentifier)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MakeFlag)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FinishedGoodsFlag)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Color)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SafetyStockLevel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReorderPoint)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StandardCost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ListPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Size)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Weight)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DaysToManufacture)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductLine)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Class)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Style)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SellStartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SellEndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiscontinuedDate)
-            </td>
-            
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td nowrap>
+                    @Html.DisplayFor(modelItem => item.ModifiedDate)
+                </td>
+                <td nowrap>
+                    @Html.DisplayFor(modelItem => item.UserIdentifier)
+                </td>
+                <td nowrap>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td nowrap>
+                    @Html.DisplayFor(modelItem => item.ProductNumber)
+                </td>
+                <td nowrap>
+                    @Html.DisplayFor(modelItem => item.MakeFlag)
+                </td>
+                <td nowrap>
+                    @Html.DisplayFor(modelItem => item.FinishedGoodsFlag)
+                </td>
+                <td nowrap>
+                    @Html.DisplayFor(modelItem => item.Color)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SafetyStockLevel)
+                </td>
+                <td nowrap>
+                    @Html.DisplayFor(modelItem => item.ReorderPoint)
+                </td>
+                <td nowrap>
+                    @Html.DisplayFor(modelItem => item.StandardCost)
+                </td>
+                <td nowrap>
+                    @Html.DisplayFor(modelItem => item.ListPrice)
+                </td>
+                <td nowrap>
+                    @Html.DisplayFor(modelItem => item.Size)
+                </td>
+                <td nowrap>
+                    @Html.DisplayFor(modelItem => item.Weight)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DaysToManufacture)
+                </td>
+                <td nowrap>
+                    @Html.DisplayFor(modelItem => item.ProductLine)
+                </td>
+                <td nowrap>
+                    @Html.DisplayFor(modelItem => item.Class)
+                </td>
+                <td nowrap>
+                    @Html.DisplayFor(modelItem => item.Style)
+                </td>
+                <td nowrap>
+                    @Html.DisplayFor(modelItem => item.SellStartDate)
+                </td>
+                <td nowrap>
+                    @Html.DisplayFor(modelItem => item.SellEndDate)
+                </td>
+                <td nowrap>
+                    @Html.DisplayFor(modelItem => item.DiscontinuedDate)
+                </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductModel.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductSubcategory.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SizeUnitMeasureCodeNavigation.UnitMeasureCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WeightUnitMeasureCodeNavigation.UnitMeasureCode)
-            </td>
 
-        </tr>
-}
+                <td nowrap>
+                    @Html.DisplayFor(modelItem => item.ProductModel.Name)
+                </td>
+                <td nowrap>
+                    @Html.DisplayFor(modelItem => item.ProductSubcategory.Name)
+                </td>
+                <td nowrap>
+                    @Html.DisplayFor(modelItem => item.SizeUnitMeasureCodeNavigation.UnitMeasureCode)
+                </td>
+                <td nowrap>
+                    @Html.DisplayFor(modelItem => item.WeightUnitMeasureCodeNavigation.UnitMeasureCode)
+                </td>
+
+            </tr>
+        }
     </tbody>
 </table>
 <div>

@@ -10,6 +10,7 @@ using System.Data.SqlClient;
 using System.Data;
 
 
+
 namespace WebHomelab.Controllers
 {
     public class ProductsController : Controller
@@ -28,37 +29,69 @@ namespace WebHomelab.Controllers
                 return NotFound();
             }
 
-            // var homelabContext = _context.Audit.Include(a => a.ProductModel).Include(a => a.ProductSubcategory).Include(a => a.SizeUnitMeasureCodeNavigation).Include(a => a.WeightUnitMeasureCodeNavigation).Include(a => a.AuditId == id); 
-            // return View(await homelabContext.ToListAsync());
-            var product = await _context.Product
-                .Include(p => p.ProductModel)
-                .Include(p => p.ProductSubcategory)
-                .Include(p => p.SizeUnitMeasureCodeNavigation)
-                .Include(p => p.WeightUnitMeasureCodeNavigation)
-                .SingleOrDefaultAsync(m => m.ProductId == id);
+            var product = await _context.Product.SingleOrDefaultAsync(m => m.ProductId == id); ;
+              
             if (product == null)
             {
                 return NotFound();
             }
 
             var nr = product.ProductNumber;
-            var productNumber = new SqlParameter("@ProductNumber", nr);
-            return View(await _context.Audit.FromSql("usp_GetProductByProductNr @ProductNumber", productNumber).ToListAsync());
 
-           // var productID = new SqlParameter("@ProductID", id);
-           // return View(await _context.Audit.FromSql("usp_GetProductByID @ProductID", productID).ToListAsync());
-            
+            var homelabContext = _context.Audit.Include(a => a.ProductModel).Include(a => a.ProductSubcategory).Include(a => a.SizeUnitMeasureCodeNavigation).Include(a => a.WeightUnitMeasureCodeNavigation).Where(a=>a.ProductNumber==nr).OrderBy(a => a.ModifiedDate);
+            return View(await homelabContext.ToListAsync());
+
+            /* OK??    var nr = product.ProductNumber;
+                var productNumber = new SqlParameter("@ProductNumber", nr);
+                return View(await _context.Audit.FromSql("usp_GetAuditProductByProductNr @ProductNumber", productNumber).ToListAsync());*/
+
         }
 
         // GET: Products
-        public async Task<IActionResult> Index()
-        {
-            var homelabContext = _context.Product.Include(p => p.ProductModel).Include(p => p.ProductSubcategory).Include(p => p.SizeUnitMeasureCodeNavigation).Include(p => p.WeightUnitMeasureCodeNavigation);
-            return View(await homelabContext.ToListAsync());
-        }
+        /*   public async Task<IActionResult> Index()
+           {
+               var homelabContext = _context.Product.Include(p => p.ProductModel).Include(p => p.ProductSubcategory).Include(p => p.SizeUnitMeasureCodeNavigation).Include(p => p.WeightUnitMeasureCodeNavigation);
+               return View(await homelabContext.ToListAsync());
+           }*/
 
-        // GET: Products/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Index(string sortOrder, string currentFilter, string searchString, int? page)
+        {
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["CurrentFilter"] = searchString;
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            var products = from p in _context.Product
+                           select p;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                products = products.Include(p => p.ProductModel).Include(p => p.ProductSubcategory).Include(p => p.SizeUnitMeasureCodeNavigation).Include(p => p.WeightUnitMeasureCodeNavigation).Where(p => p.Name.StartsWith(searchString));
+
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    products = products.Include(p => p.ProductModel).Include(p => p.ProductSubcategory).Include(p => p.SizeUnitMeasureCodeNavigation).Include(p => p.WeightUnitMeasureCodeNavigation).OrderByDescending(s => s.Name);
+                    break;
+                default:
+                    products = products.Include(p => p.ProductModel).Include(p => p.ProductSubcategory).Include(p => p.SizeUnitMeasureCodeNavigation).Include(p => p.WeightUnitMeasureCodeNavigation).OrderBy(s => s.Name);
+                    break;
+            }
+            //  return View(await products.AsNoTracking().ToListAsync());
+            int pageSize = 10;
+            return View(await PaginatedList<Product>.CreateAsync(products.AsNoTracking(), page ?? 1, pageSize));
+
+        }
+            // GET: Products/Details/5
+            public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -184,7 +217,7 @@ namespace WebHomelab.Controllers
 
                     long auditID;
                     var time = DateTime.Now.ToString("yyyyMMddhhmmss").ToString();
-                    //  var time = Guid.NewGuid().ToString();
+                    //  var rowGuid = Guid.NewGuid().ToString();
                     long.TryParse(time, out auditID);
 
                     auditIdParam.Value = auditId; //product.ProductId;
@@ -226,8 +259,8 @@ namespace WebHomelab.Controllers
                     sellStartDateParam.Value = product.SellStartDate;
                     sellEndDateParam.Value = product.SellEndDate;
                     discontinuedDateParam.Value = product.DiscontinuedDate;
-                    rowguidParam.Value = product.Rowguid;
-                    modifiedDateParam.Value = product.ModifiedDate;
+                    rowguidParam.Value = Guid.NewGuid(); //product.Rowguid;  
+                    modifiedDateParam.Value = DateTime.Today; //product.ModifiedDate;
                     userIdentifierParam.Value = product.UserIdentifier;
                     if (userIdentifierParam.Value == null)
                         userIdentifierParam.Value = DBNull.Value;

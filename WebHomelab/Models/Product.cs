@@ -4,8 +4,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebHomelab.Models
 {
+
+
     public partial class Product
     {
+
         [Display(Name = "Pruduct ID")]
         public int ProductId { get; set; }
 
@@ -29,12 +32,12 @@ namespace WebHomelab.Models
         public short ReorderPoint { get; set; }
 
         [Display(Name = "Standard cost")]
-       // [DisplayFormat(DataFormatString = "{0:0.00}", ApplyFormatInEditMode = true)]
+        // [DisplayFormat(DataFormatString = "{0:0.00}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Currency)]
         public decimal StandardCost { get; set; }
 
         [Display(Name = "List price")]
-       // [DisplayFormat(DataFormatString = "{0:0.00}", ApplyFormatInEditMode = true)]
+        // [DisplayFormat(DataFormatString = "{0:0.00}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Currency)]
         public decimal ListPrice { get; set; }
 
@@ -66,30 +69,36 @@ namespace WebHomelab.Models
         public int? ProductModelId { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        //  [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Sell start date")]
-        public DateTime SellStartDate { get; set; }
+        public DateTime? SellStartDate { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        //    [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Sell end date")]
         public DateTime? SellEndDate { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        //   [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Discontinued date")]
         public DateTime? DiscontinuedDate { get; set; }
 
         public Guid Rowguid { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
+        //   [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Modified date")]
-        public DateTime ModifiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
 
+        private string userIdentifier;
 
-        [Display(Name = "User")]
-        public string UserIdentifier { get; set; }
+        [Display(Name = "Modified by")]
+        public string UserIdentifier
+        {
+            get { return userIdentifier ?? "Timooo"; }
+
+            set { userIdentifier = value; }
+        }
 
         [Display(Name = "Product model")]
         public ProductModel ProductModel { get; set; }
